@@ -1,0 +1,36 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+#Dataset
+CMAPSS_Data
+
+#MLFlow files
+mlruns/
+mlartifacts/
+
+#SQLite DBs
+*.db
+
+# Artifacts
+*.png
+*.csv
+
+# Models
+*.pkl
+*.joblib
+
+#Vector embeddings
+chroma_db/
