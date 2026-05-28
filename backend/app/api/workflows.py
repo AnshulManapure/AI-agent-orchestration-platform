@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 from app.core.database import get_db
 from app.models.agent import Workflow, WorkflowRun, AgentMessage
 
@@ -40,8 +41,8 @@ class WorkflowRunResponse(BaseModel):
     id: str
     workflow_id: str
     status: str
-    started_at: str
-    completed_at: Optional[str]
+    started_at: datetime
+    completed_at: Optional[datetime]
 
     class Config:
         from_attributes = True

@@ -11,3 +11,7 @@ langchain-google-genai
 python-telegram-bot
 python-dotenv
 websockets
+pytest
+pytest-asyncio
+anyio
+httpx

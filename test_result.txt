@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python3.11
+cachedir: .pytest_cache
+rootdir: /app
+configfile: pytest.ini
+plugins: langsmith-0.8.5, anyio-4.13.0, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=session, asyncio_default_test_loop_scope=session
+collecting ... collected 13 items
+
+tests/test_agent_crud.py::test_create_agent PASSED                       [  7%]
+tests/test_agent_crud.py::test_list_agents PASSED                        [ 15%]
+tests/test_agent_crud.py::test_get_agent PASSED                          [ 23%]
+tests/test_agent_crud.py::test_update_agent PASSED                       [ 30%]
+tests/test_agent_crud.py::test_delete_agent PASSED                       [ 38%]
+tests/test_agent_crud.py::test_get_nonexistent_agent PASSED              [ 46%]
+tests/test_message_delivery.py::test_get_messages_empty_run PASSED       [ 53%]
+tests/test_message_delivery.py::test_list_workflow_runs PASSED           [ 61%]
+tests/test_workflow_execution.py::test_create_workflow PASSED            [ 69%]
+tests/test_workflow_execution.py::test_list_templates PASSED             [ 76%]
+tests/test_workflow_execution.py::test_run_invalid_workflow PASSED       [ 84%]
+tests/test_workflow_execution.py::test_run_workflow_no_agents PASSED     [ 92%]
+tests/test_workflow_execution.py::test_run_workflow_success PASSED       [100%]
+
+=============================== warnings summary ===============================
+app/core/config.py:3
+  /app/app/core/config.py:3: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+app/api/agents.py:34
+  /app/app/api/agents.py:34: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AgentResponse(BaseModel):
+
+app/api/workflows.py:29
+  /app/app/api/workflows.py:29: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class WorkflowResponse(BaseModel):
+
+app/api/workflows.py:40
+  /app/app/api/workflows.py:40: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class WorkflowRunResponse(BaseModel):
+
+app/api/workflows.py:51
+  /app/app/api/workflows.py:51: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class MessageResponse(BaseModel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 13 passed, 5 warnings in 0.67s ========================
