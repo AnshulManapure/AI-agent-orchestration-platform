@@ -76,7 +76,7 @@ async def seed_templates(db: AsyncSession):
                 Workflow.is_template == True
             )
         )
-        existing = result.scalar_one_or_none()
+        existing = result.scalars().first()
         if not existing:
             workflow = Workflow(**template)
             db.add(workflow)
