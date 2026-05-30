@@ -8,7 +8,7 @@ Conductor is a platform for creating AI agents, connecting them into collaborati
 
 ## Demo
 
-> [Insert Loom/YouTube link here]
+> https://drive.google.com/file/d/1jkgIeZ5CTXaRmB3o4btLsdc_qHVnoMqO/view?usp=sharing
 
 ---
 
@@ -94,7 +94,7 @@ ReactFlow provides the visual workflow builder canvas with drag-and-drop nodes, 
 ### 1. Clone and configure
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/AnshulManapure/AI-agent-orchestration-platform.git
 cd conductor
 ```
 

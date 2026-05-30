@@ -135,5 +135,13 @@ async def run_workflow(
                 content=content
             )
             await publish_message(redis_client, run_id, node_name, content)
+    
+    # Signal completion
+    await redis_client.publish(f"run:{run_id}", json.dumps({
+        "run_id": run_id,
+        "sender": "__system__",
+        "content": "__done__",
+        "timestamp": datetime.utcnow().isoformat()
+    }))
 
     await redis_client.aclose()

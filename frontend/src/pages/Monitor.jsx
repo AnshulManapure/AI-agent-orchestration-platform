@@ -3,12 +3,13 @@ import { getWorkflows, getWorkflowRuns, getRunMessages, startRun } from '../api/
 
 function LogLine({ msg, index }) {
   const colors = {
+    user: 'var(--accent)',
     Researcher: 'var(--blue)',
     Writer: 'var(--green)',
     Classifier: 'var(--orange)',
     'FAQ Agent': 'var(--accent)',
     'Escalation Agent': 'var(--red)',
-  }
+}
   const color = colors[msg.sender] || 'var(--text-muted)'
 
   return (
@@ -95,6 +96,20 @@ export default function Monitor() {
     ws.onopen = () => setWsStatus('connected')
     ws.onmessage = (e) => {
       const data = JSON.parse(e.data)
+      if (data.sender === '__system__' && data.content === '__done__') {
+        // Workflow finished -- fetch final state
+        getRunMessages(data.run_id).then(res => {
+          if (res.data.length > 0) {
+            setMessages(res.data)
+            setLiveMessages([])
+          }
+        })
+        getWorkflowRuns(selectedWf).then(res => {
+          setRuns(res.data.sort((a, b) => new Date(b.started_at) - new Date(a.started_at)))
+        })
+        setWsStatus('closed')
+        return
+      }
       setLiveMessages(prev => [...prev, data])
     }
     ws.onclose = () => setWsStatus('closed')
@@ -110,17 +125,23 @@ export default function Monitor() {
       const runRes = await startRun({ workflow_id: selectedWf, input_message: inputMsg })
       const runId = runRes.data.run_id
       setSelectedRun(runId)
+
+      // Connect WebSocket immediately -- backend is now running in background
       connectWs(runId)
+
       // Refresh runs list
       const runsRes = await getWorkflowRuns(selectedWf)
       setRuns(runsRes.data.sort((a, b) => new Date(b.started_at) - new Date(a.started_at)))
-      // After completion fetch persisted messages
+
+      // After enough time for workflow to complete, fetch persisted messages
       setTimeout(() => {
         getRunMessages(runId).then(res => {
-          setMessages(res.data)
-          setLiveMessages([])
+          if (res.data.length > 0) {
+            setMessages(res.data)
+            setLiveMessages([])
+          }
         })
-      }, 3000)
+      }, 15000)
     } finally {
       setRunning(false)
     }
